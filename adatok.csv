@@ -1,23 +1,23 @@
-buildings;shelfs;lines;objects;quantity
-Wines;A;1;Kopár;23
-Drinks;C;3;Kinley Gyömbér;21
-Ice-cream;A;2;Epres fagylalt;23
-Chips;B;1;Pringles Classic;11
-Wines;C;2;Rosé Cuvée;13
-Drinks;C;2;Pepsi;34
-Ice-cream;A;3;Vaníliás fagylalt;43
-Chips;B;1;Chio sós;32
-Wines;B;2;Chardonnay;11
-Wines;C;3;Sauvignon Blanc;24
-Wines;A;1;Merengő;45
-Drinks;A;2;Coca Cola;73
-Ice-cream;A;3;Csokis fagylalt;12
-Ice-cream;B;2;Pisztáciás fagylalt;11
-Chips;B;2;Lay's sajtos;45
-Wines;C;1;Trió Cuvée;23
-Drinks;A;3;Mirinda;55
-Drinks;C;1;Schweppes Tonic;33
-Ice-cream;C;1;Citromos fagylalt;25
-Ice-cream;B;2;Kókuszos fagylalt;41
-Ice-cream;A;2;Sóskaramellás fagylalt;39
-Chips;C;2;Rice Chips;28
+buildings,shelves,lines,objects,quantity,building_id
+Wines,A,1,Kopár,23,1
+Drinks,C,3,Kinley Gyömbér,21,2
+Ice-cream,A,2,Epres fagylalt,23,3
+Chips,B,1,Pringles Classic,11,4
+Wines,C,2,Rosé Cuvée,13,1
+Drinks,C,2,Pepsi,34,2
+Ice-cream,A,3,Vaníliás fagylalt,43,3
+Chips,B,1,Chio sós,32,4
+Wines,B,2,Chardonnay,11,1
+Wines,C,3,Sauvignon Blanc,24,1
+Wines,A,1,Merengő,45,1
+Drinks,A,2,Coca Cola,73,2
+Ice-cream,A,3,Csokis fagylalt,12,3
+Ice-cream,B,2,Pisztáciás fagylalt,11,3
+Chips,B,2,Lay's sajtos,45,4
+Wines,C,1,Trió Cuvée,23,1
+Drinks,A,3,Mirinda,55,2
+Drinks,C,1,Schweppes Tonic,33,2
+Ice-cream,C,1,Citromos fagylalt,25,3
+Ice-cream,B,2,Kókuszos fagylalt,41,3
+Ice-cream,A,2,Sóskaramellás fagylalt,39,3
+Chips,C,2,Rice Chips,28,4

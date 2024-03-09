@@ -1,7 +1,7 @@
 <?php
 
-class BuildingsDbTools {
-    const DBTABLE = 'buildings';
+class StoresDbTools {
+    const DBTABLE = 'stores';
 
     private $mysqli;
 
@@ -18,20 +18,22 @@ class BuildingsDbTools {
         $this->mysqli->close();
     }
 
-    function createBuilding($building)
+    function createStore($shelf,$shelfLine,$buildingId)
     {
-        $result = $this->mysqli->query("INSERT INTO " . self::DBTABLE . " (name) VALUES ('$building')");
+        $sql = "INSERT INTO " . self::DBTABLE . " (shelves,shelf_lines,buildings_id) VALUES (?, ?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ssi", $shelf, $shelfLine, $buildingId);
+        $result = $stmt->execute();
         if (!$result) {
-            echo "Hiba történt a $building beszúrása közben";
-
+            echo "Hiba történt a város beszúrása közben";
+            return false;
         }
-        return $result;
+        return true;
     }
 
-    function truncateBuildings()
+    function truncateStore()
     {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
         return $result;
     }
 }
-?>

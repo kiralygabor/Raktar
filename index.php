@@ -20,20 +20,27 @@ require_once("DBBuildings.php");
 require_once("DBStores.php");
 require_once("DBProducts.php");
 require_once("BuildingsDbTools.php");
+require_once("StoresDbTools.php");
+require_once("ProductsDbTools.php");
 
 $csvtools = new CsvTools();
 $dbBuildings = new DBBuildings();
 $dbStores  = new DBStores();
 $dbProducts = new DBProducts();
 $buildingsDbTools = new BuildingsDbTools();
+$storesDbTools = new StoresDbTools();
+$productsDbTools = new ProductsDbTools();
 
 $csvData = $csvtools->getCsvData($csvtools::FILENAME);
 $getBuildings = $csvtools->getBuildings($csvData);
+
+
 
 $createBuildingsTable = $dbBuildings->createTable();
 $createStoresTable = $dbStores->createTable();
 $createProductsTable = $dbProducts->createTable();
 
-$createBuildings = $buildingsDbTools->createBuilding($buildings);
-
+$truncateBuildingsTable = $csvtools->truncateBuildingsTable($buildingsDbTools,$csvData);
+$truncateStoresTable = $csvtools->truncateStoresTable($storesDbTools,$csvData);
+$truncateProductsTable = $csvtools->truncateProductsTable($productsDbTools,$csvData);
 ?>

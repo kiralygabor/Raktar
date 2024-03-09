@@ -1,7 +1,7 @@
 <?php
 
-class BuildingsDbTools {
-    const DBTABLE = 'buildings';
+class ProductsDbTools {
+    const DBTABLE = 'products';
 
     private $mysqli;
 
@@ -18,20 +18,22 @@ class BuildingsDbTools {
         $this->mysqli->close();
     }
 
-    function createBuilding($building)
+    function createProduct($product,$quantity)
     {
-        $result = $this->mysqli->query("INSERT INTO " . self::DBTABLE . " (name) VALUES ('$building')");
+        $sql = "INSERT INTO " . self::DBTABLE . " (name,quantity,minimum_qty) VALUES (?, ?, 10)";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("si", $product, $quantity);
+        $result = $stmt->execute();
         if (!$result) {
-            echo "Hiba történt a $building beszúrása közben";
-
+            echo "Hiba történt a város beszúrása közben";
+            return false;
         }
-        return $result;
+        return true;
     }
 
-    function truncateBuildings()
+    function truncateProduct()
     {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
         return $result;
     }
 }
-?>
