@@ -36,4 +36,10 @@ class StoresDbTools {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
         return $result;
     }
+
+    function deleteStores()
+    {
+        $result = $this->mysqli->query("DROP TABLE " . self::DBTABLE);
+        return $result;
+    }
 }

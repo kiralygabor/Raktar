@@ -42,6 +42,26 @@ class CsvTools{
         return $lines;
     }
 
+    function getCsvDataFromTmpFile($tmpFilePath) {
+        $lines = [];
+        $csvFile = fopen($tmpFilePath, 'r');
+        while (! feof($csvFile)) {
+            $line = fgetcsv($csvFile);
+            $lines[] = $line;
+        }
+        fclose($csvFile);
+        return $lines;
+    }
+    function importCsv($tmpFilePath, $buildingsDbTools, $storesDbTools, $productsDbTools) {
+        $csvData = $this->getCsvDataFromTmpFile($tmpFilePath);
+
+        if (empty($csvData)) {
+            echo "Nem található adat a CSV fájlban.";
+            return false;
+        }
+        header("Refresh:0"); 
+    }
+
     function getBuildings($csvData)
     {
         if (empty($csvData)) {

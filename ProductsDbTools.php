@@ -36,4 +36,10 @@ class ProductsDbTools {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
         return $result;
     }
+
+    function deleteProducts()
+    {
+        $result = $this->mysqli->query("DROP TABLE " . self::DBTABLE);
+        return $result;
+    }
 }

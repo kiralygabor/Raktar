@@ -33,5 +33,11 @@ class BuildingsDbTools {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
         return $result;
     }
+
+    function deleteBuildings()
+    {
+        $result = $this->mysqli->query("DROP TABLE " . self::DBTABLE);
+        return $result;
+    }
 }
 ?>
