@@ -1,0 +1,58 @@
+body{
+    background-color: gray;
+}
+
+.index-header{
+    text-align: center;
+}
+
+header{
+    padding-bottom: 10%;
+}
+
+.index-buttons{
+    border: 2px solid;
+    margin: auto;
+    width: 35%;
+    padding: 10px;
+    background-color: lightgray;
+    box-shadow: 5px 5px 5px lightgray;
+}
+
+.database-buttons{
+    text-align: center;
+    border-bottom: 1px solid;
+}
+
+.create-database{
+    margin-bottom: 10px;
+}
+
+.tables-buttons{
+    text-align: center;
+    border-bottom: 1px solid;
+
+}
+
+.create-tables{
+    margin-bottom: 10px;
+}
+
+.import{
+    text-align: center;
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
+}
+
+#formFile{
+    margin-bottom: 10px;
+}
+
+.next-page{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
