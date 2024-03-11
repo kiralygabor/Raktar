@@ -4,9 +4,25 @@ class DB
     
     protected $mysqli;
 
-    function createDatabase(){
-        $query = "CREATE DATABASE IF NOT EXISTS warehouse_db;";
-        return $this->mysqli->query($query);
+    static function databaseExists()
+    {
+        $mysqli = mysqli_connect($host = 'localhost', $user = 'root', $password = null, 'mysql');
+        $query = "SELECT SCHEMA_NAME
+                    FROM INFORMATION_SCHEMA.SCHEMATA
+                    WHERE SCHEMA_NAME = 'warehouse_db';";
+
+        return $mysqli->query($query)->num_rows > 0;
+    }
+
+    static function createDatabase()
+    {
+        $mysqli = mysqli_connect($host = 'localhost', $user = 'root', $password = null, 'mysql');
+        if (!$mysqli) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        $sql = "CREATE DATABASE warehouse_db DEFAULT CHARACTER SET utf8 ;";
+        $mysqli->query($sql);
     }
 
     function deleteDatabase()

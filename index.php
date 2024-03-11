@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="fontawesome/css/all.css" type="text/css">
-    <!--<link rel="stylesheet" href="css/main.css">-->
+    <link rel="stylesheet" href="css/main.css">
     <title>Főoldal</title>
 </head>
 <body>
@@ -63,14 +63,17 @@ require_once("BuildingsDbTools.php");
 require_once("StoresDbTools.php");
 require_once("ProductsDbTools.php");
 
-$db = new DB();
-$csvtools = new CsvTools();
-$dbBuildings = new DBBuildings();
-$dbStores  = new DBStores();
-$dbProducts = new DBProducts();
-$buildingsDbTools = new BuildingsDbTools();
-$storesDbTools = new StoresDbTools();
-$productsDbTools = new ProductsDbTools();
+
+if(DB::databaseExists()){
+    $db = new DB();
+    $csvtools = new CsvTools();
+    $dbBuildings = new DBBuildings();
+    $dbStores  = new DBStores();
+    $dbProducts = new DBProducts();
+    $buildingsDbTools = new BuildingsDbTools();
+    $storesDbTools = new StoresDbTools();
+    $productsDbTools = new ProductsDbTools();
+}
 
 if (isset($_POST['import-btn']) && isset($_FILES['input-file']['tmp_name'])) {
     $tmpFilePath = $_FILES['input-file']['tmp_name'];
@@ -109,12 +112,20 @@ if(isset($_POST['delete-tables-btn'])){
 }
 
 if(isset($_POST['create-database'])){
-    $db->createDatabase();
+    if(!DB::databaseExists()){
+        DB::createDatabase();
+    }
+    else{
+        echo 'Létezik';
+    }
 }
 
 if(isset($_POST['delete-database'])){
     $db->deleteDatabase();
 }
+
+
+
 
 
 ?>

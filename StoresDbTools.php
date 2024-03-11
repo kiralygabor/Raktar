@@ -42,4 +42,23 @@ class StoresDbTools {
         $result = $this->mysqli->query("DROP TABLE " . self::DBTABLE);
         return $result;
     }
+    /*
+    public function getStoresByBuildingId($buildingId)
+    {
+        $cities = [];
+ 
+        $query = "SELECT stores.*, counties.name AS county_name FROM cities INNER JOIN counties ON cities.id_county = counties.id WHERE cities.id_county = ?";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("i", $countyId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $cities = [];
+        while ($row = $result->fetch_assoc()) {
+            $cities[] = $row;
+        }
+        $stmt->close();
+        return $cities;
+   
+    }
+    */
 }

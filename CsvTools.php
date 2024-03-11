@@ -127,7 +127,8 @@ class CsvTools{
         return $products;
     }
 
-    function truncateBuildingsTable($buildingsDbTools,$csvData){
+    function truncateBuildingsTable($buildingsDbTools,$csvData)
+    {
         $buildingsDbTools->truncateBuildings();
         $buildings = $this->getBuildings($csvData);
         foreach ($buildings as $building){
@@ -135,7 +136,8 @@ class CsvTools{
         }
     }
 
-    function truncateStoresTable($storesDbTools,$csvData){
+    function truncateStoresTable($storesDbTools,$csvData)
+    {
         $storesDbTools->truncateStore();
         $stores = $this->getStores($csvData);
         foreach ($stores as $store){
@@ -143,7 +145,8 @@ class CsvTools{
         }
     }
 
-    function truncateProductsTable($productsDbTools,$csvData){
+    function truncateProductsTable($productsDbTools,$csvData)
+    {
         $productsDbTools->truncateProduct();
         $products = $this->getProducts($csvData);
         foreach ($products as $product){
