@@ -98,10 +98,11 @@ class CsvTools{
             if ($idx == 0) {
                 continue;
             }
-                $shelf = $line[$this->idxShelves];
-                $shelfLine = $line[$this->idxLines];
                 $buildingId = $line[$this->idxBuildingId];
-                $stores[] = [$shelf,$shelfLine,$buildingId];
+                $shelf = $line[$this->idxShelves];
+                $shelfLine = $line[$this->idxLines];   
+                $productsName = $line[$this->idxObjects];            
+                $stores[] = [$buildingId,$shelf,$shelfLine,$productsName];
         }
         return $stores;
     }
@@ -141,7 +142,7 @@ class CsvTools{
         $storesDbTools->truncateStore();
         $stores = $this->getStores($csvData);
         foreach ($stores as $store){
-            $storesDbTools->createStore($store[0],$store[1],$store[2]);
+            $storesDbTools->createStore($store[0],$store[1],$store[2],$store[3]);
         }
     }
 

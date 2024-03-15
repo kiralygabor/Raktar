@@ -39,26 +39,56 @@ abstract class AbstractPage {
         </form>';
     }
 
-    static function showMainTable(array $stores)
+    static function showMainTable(array $storages)
     {
         echo '<table>
                 <tr>
-                    ><th>Polc</th>
+                    <th>Raktár</th>
+                    <th>Polc</th>
                     <th>Sor</th>
+                    <th>Áru</th>
                     <th>Mennyiség</th>
                     <th class="muveletek" colspan="2">Műveletek</th>
                 </tr>';
-        foreach ($stores as $store) {
+        foreach ($storages as $storage) {
             echo '<tr>
-                    <td>' . $store['shelves'] . '</td>
-                    <td>' . $store['shelf_lines'] . '</td>
-                    <td>' . $store['county_name'] . '</td>
-                    <td>' . $store['county_name'] . '</td>
-                    <td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="store_id" value="' . $store['id'] . '"><input type="submit" name="delete_store" value="Törlés"></form></td>
-                    <td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="modify_store_id" value="' . $store['id'] . '"><input type="submit" name="modify_store" value="Módosítás"></form></td>
+                    <td>' . $storage['name'] . '</td>
+                    <td>' . $storage['shelves'] . '</td>
+                    <td>' . $storage['shelf_lines'] . '</td>
+                    <td>' . $storage['products_name'] . '</td>
+                    <td>' . $storage['quantity'] . '</td>
+                    <td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="storage_id" value="' . $storage['id'] . '"><input type="submit" name="delete_storage" value="Törlés"></form></td>
+                    <td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="modify_storage_id" value="' . $storage['id'] . '"><input type="submit" name="modify_storage" value="Módosítás"></form></td>
                 </tr>';
         }
         echo '</table>';
+    }
+
+    static function showModifyStore(array $storeToModify, ?int $modifyStoreId)
+    {
+        echo '<form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
+                <input type="hidden" name="modify_store_id" value="' . $modifyStoreId . '">
+                <label for="modified_store_name">Módosított raktár neve:</label>
+
+                <input type="text" id="modified_store_name" name="modified_store_name" value="' . $storeToModify['name'] . '">
+
+                <label for="modified_store_shelves">Módosított polc:</label>
+                <input type="text" id="modified_store_shelves" name="modified_store_shelves" value="' . $storeToModify['shelves'] . '">
+
+                <label for="modified_store_name">Módosított sor:</label>
+                <input type="text" id="modified_store_self_lines" name="modified_store_self_lines" value="' . $storeToModify['shelf_lines'] . '">
+
+                <label for="modified_store_name">Módosított áru:</label>
+                <input type="text" id="modified_store_products_name" name="modified_store_products_name" value="' . $storeToModify['products_name'] . '">
+
+                <label for="modified_store_name">Módosított áru mennyisége:</label>
+                <input type="text" id="modified_store_quantity" name="modified_store_quantity" value="' . $storeToModify['quantity'] . '">
+
+                <label for="modified_store_name">Módosított minimum mennyiség:</label>
+                <input type="text" id="modified_store_minimum_qty" name="modified_store_minimum_qty" value="' . $storeToModify['minimum_qty'] . '">
+
+                <input type="submit" name="modify_city_submit" value="Mentés">
+            </form>';
     }
 
 }

@@ -6,7 +6,7 @@ class DBStores extends DB implements StoresInterface
 {
 
     public function createTable(){
-        $query = 'CREATE TABLE IF NOT EXISTS stores (id int AUTO_INCREMENT PRIMARY KEY, shelves varchar(10), shelf_lines varchar(10), buildings_id int NOT NULL);';
+        $query = 'CREATE TABLE IF NOT EXISTS stores (id int AUTO_INCREMENT PRIMARY KEY, buildings_id int NOT NULL, shelves varchar(10), shelf_lines varchar(10), products_name varchar(50));';
         return $this->mysqli->query($query);
     }
 
