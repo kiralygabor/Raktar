@@ -90,20 +90,20 @@ class StoresDbTools {
     }
 
     public function getStoreById($storeId) {
-        $query = "SELECT * FROM " . self::DBTABLE . " WHERE id = ?";
+        $query = "SELECT buildings.name, stores.shelves, stores.shelf_lines, stores.products_name, products.quantity, products.minimum_qty FROM buildings INNER JOIN stores ON buildings.id = stores.buildings_id INNER JOIN products ON stores.products_name = products.name WHERE stores.id = ?";
         $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param("i", $storeId);
         $stmt->execute();
         $result = $stmt->get_result();
-        $city = $result->fetch_assoc();
+        $store = $result->fetch_assoc();
         $stmt->close();
         return $store;
     }
 
     function updateStore($storeName, $storeShelves, $storeShelfLines, $storeProductsName, $storeQuantity, $storeMinimumQuntity, $storeId) {
-        $sql = "UPDATE " . self::DBTABLE . " SET name = ?, shelves = ?, shelves_lines = ?, products_name?, quantity = ?, minimum_qty = ? WHERE id = ?";
+        $sql = "UPDATE buildings INNER JOIN stores ON buildings.id = stores.building_id INNER JOIN products ON stores.products_name = products.name SET buildings.name = ?, stores.shelves = ?, stores.shelves_lines = ?, stores.products_name?, products.quantity = ?, products.minimum_qty = ? WHERE stores.id = ?";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ssisiii", $storeName, $storeShelves, $storeShelfLines, $storeProductsName, $storeQuantity, $storeMinimumQuntity, $storeId);
+        $stmt->bind_param("ssssiii", $storeName, $storeShelves, $storeShelfLines, $storeProductsName, $storeQuantity, $storeMinimumQuntity, $storeId);
         $result = $stmt->execute();
 
         if (!$result) {
@@ -113,4 +113,19 @@ class StoresDbTools {
 
         return true;
     }
+
+    public function addStore($newStoreName, $newShelvesName, $newShelvesLinesName, $newProductsName, $newProductsQuantity, $newProductsMinimumQty, $buildingId) {
+        //$sql = "INSERT INTO (zip_code, city, id_county) VALUES (?, ?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ssssiii", $newStoreName, $newShelvesName, $newShelvesLinesName, $newProductsName, $newProductsQuantity, $newProductsMinimumQty, $buildingId);
+        $result = $stmt->execute();
+ 
+        if (!$result) {
+            echo "Error adding store: " . $this->mysqli->error;
+            return false;
+        }
+ 
+        return true;
+    }
+ 
 }

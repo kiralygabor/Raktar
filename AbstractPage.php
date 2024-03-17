@@ -68,8 +68,8 @@ abstract class AbstractPage {
     {
         echo '<form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
                 <input type="hidden" name="modify_store_id" value="' . $modifyStoreId . '">
-                <label for="modified_store_name">Módosított raktár neve:</label>
 
+                <label for="modified_store_name">Módosított raktár neve:</label>
                 <input type="text" id="modified_store_name" name="modified_store_name" value="' . $storeToModify['name'] . '">
 
                 <label for="modified_store_shelves">Módosított polc:</label>
@@ -87,8 +87,39 @@ abstract class AbstractPage {
                 <label for="modified_store_name">Módosított minimum mennyiség:</label>
                 <input type="text" id="modified_store_minimum_qty" name="modified_store_minimum_qty" value="' . $storeToModify['minimum_qty'] . '">
 
-                <input type="submit" name="modify_city_submit" value="Mentés">
+                <input type="submit" name="modify_store_submit" value="Mentés">
             </form>';
+    }
+
+    static function showAddStore()
+    {
+        echo '<form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">';
+        if (isset($_POST["buildingDropdown"])) {
+            $selectedBuildingId = isset($_POST["buildingDropdown"]) ? $_POST["buildingDropdown"] : '';
+        }
+        echo '<input type="hidden" name="building_id" value="' . (isset($selectedBuildingId) ? $selectedBuildingId : '') . '">
+
+        <label for="new_store_name">Új raktár neve:</label>
+        <input type="text" id="new_store_name" name="new_store_name">
+
+        <label for="new_shelves_name">Új polc neve:</label>
+        <input type="text" id="new_shelves_name" name="new_shelves_name">
+
+        <label for="new_shelves_lines_name">Új sor neve:</label>
+        <input type="text" id="new_shelves_lines_name" name="new_shelves_lines_name">
+
+        <label for="new_products_name">Új áru neve:</label>
+        <input type="text" id="new_products_name" name="new_products_name">
+
+        <label for="new_products_quantity">Új áru mennyisége:</label>
+        <input type="text" id="new_products_quantity" name="new_products_quantity">
+
+        <label for="new_products_minimum_qty">Új áru minimum mennyisége:</label>
+        <input type="text" id="new_products_minimum_qty" name="new_products_minimum_qty">
+
+        <input type="hidden" name="id_building" value="<?php echo $selectedBuildingId; ?>">
+        <input type="submit" name="add_store" value="Hozzáad">
+        </form>';
     }
 
 }
