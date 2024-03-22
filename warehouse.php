@@ -10,8 +10,11 @@
     $productsDbTools = new ProductsDbTools();
 
     AbstractPage::insertHtmlHead();
+    AbstractPage::showHomeBtn();
     $buildings = $buildingsDbTools->getAllBuildings();
     AbstractPage::showDropDown($buildings);
+    AbstractPage::showExportDiv();
+    AbstractPage::showAddStore();
 
     if (isset($_POST["buildingDropdown"])) 
     {
@@ -43,13 +46,14 @@
 
     if (isset($_POST['modify_store_submit'])) {
         $modifyStoreId = $_POST['modify_store_id'];
-        $modifiedStoreName = $_POST['modified_store_name'];
         $modifiedStoreShelves = $_POST['modified_store_shelves'];
         $modifiedStoreShelvesLines = $_POST['modified_store_self_lines'];
         $modifiedStoreProductsName = $_POST['modified_store_products_name'];
+        $modifiedProductProductsName = $modifiedStoreProductsName;
         $modifiedStoreQuantity = $_POST['modified_store_quantity'];
         $modifiedStoreMinimumQty = $_POST['modified_store_minimum_qty'];
-        $storesDbTools->updateStore($modifyStoreId,$modifiedStoreName,$modifiedStoreShelves,$modifiedStoreShelvesLines,$modifiedStoreProductsName,$modifiedStoreQuantity,$modifiedStoreMinimumQty);
+        $storesDbTools->updateStore($modifiedStoreShelves,$modifiedStoreShelvesLines,$modifiedStoreProductsName,$modifiedProductProductsName,$modifiedStoreQuantity,$modifiedStoreMinimumQty,$modifyStoreId);
+        $buildingId = isset($_POST["buildingDropdown"]) ? $_POST["buildingDropdown"] : '';
         $storages = $storesDbTools->getStoresByBuildingId($buildingId);
     }
 

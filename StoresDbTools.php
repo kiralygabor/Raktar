@@ -100,10 +100,10 @@ class StoresDbTools {
         return $store;
     }
 
-    function updateStore($storeName, $storeShelves, $storeShelfLines, $storeProductsName, $storeQuantity, $storeMinimumQuntity, $storeId) {
-        $sql = "UPDATE buildings INNER JOIN stores ON buildings.id = stores.building_id INNER JOIN products ON stores.products_name = products.name SET buildings.name = ?, stores.shelves = ?, stores.shelves_lines = ?, stores.products_name?, products.quantity = ?, products.minimum_qty = ? WHERE stores.id = ?";
+    function updateStore($storeShelves, $storeShelfLines, $storeProductsName, $productProductsName, $storeQuantity, $storeMinimumQuntity, $storeId) {
+        $sql = "UPDATE buildings INNER JOIN stores ON buildings.id = stores.buildings_id INNER JOIN products ON stores.products_name = products.name SET stores.shelves = ?, stores.shelf_lines = ?, stores.products_name = ?, products.name = ?, products.quantity = ?, products.minimum_qty = ? WHERE stores.id = ?";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ssssiii", $storeName, $storeShelves, $storeShelfLines, $storeProductsName, $storeQuantity, $storeMinimumQuntity, $storeId);
+        $stmt->bind_param("ssssiii",$storeShelves, $storeShelfLines, $storeProductsName, $productProductsName, $storeQuantity, $storeMinimumQuntity, $storeId);
         $result = $stmt->execute();
 
         if (!$result) {
@@ -126,6 +126,41 @@ class StoresDbTools {
         }
  
         return true;
+    }
+
+    public function getWines(): array
+    {
+        $query = "SELECT stores.shelves, stores.shelf_lines, products.name, products.quantity FROM stores INNER JOIN products ON products.name = stores.products_name INNER JOIN buildings ON buildings.id = stores.buildings_id WHERE buildings.id = 1 ORDER BY stores.shelves;";
+
+        return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getDrinks(): array
+    {
+        $query = "SELECT stores.shelves, stores.shelf_lines, products.name, products.quantity FROM stores INNER JOIN products ON products.name = stores.products_name INNER JOIN buildings ON buildings.id = stores.buildings_id WHERE buildings.id = 2 ORDER BY stores.shelves;";
+
+        return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getChips(): array
+    {
+        $query = "SELECT stores.shelves, stores.shelf_lines, products.name, products.quantity FROM stores INNER JOIN products ON products.name = stores.products_name INNER JOIN buildings ON buildings.id = stores.buildings_id WHERE buildings.id = 4 ORDER BY stores.shelves;";
+
+        return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getIceCreams(): array
+    {
+        $query = "SELECT stores.shelves, stores.shelf_lines, products.name, products.quantity FROM stores INNER JOIN products ON products.name = stores.products_name INNER JOIN buildings ON buildings.id = stores.buildings_id WHERE buildings.id = 3 ORDER BY stores.shelves;";
+
+        return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCheks(): array
+    {
+        $query = "SELECT buildings.name, stores.shelves, stores.shelf_lines, stores.products_name, products.quantity FROM stores INNER JOIN products ON products.name = stores.products_name INNER JOIN buildings ON buildings.id = stores.buildings_id WHERE products.quantity < products.minimum_qty ORDER BY buildings.name;";
+
+        return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
     }
  
 }

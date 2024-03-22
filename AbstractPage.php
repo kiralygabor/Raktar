@@ -13,15 +13,103 @@ abstract class AbstractPage {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="fontawesome/css/all.css" type="text/css">
-    </head>
-    <body>
-    
-    <h1>Raktárak</h1>';
+    </head>';   
+    }
+
+    static function insertindexHtmlBody()
+    {
+    echo'<body>
+
+            <header>
+                <h1 class="index-header">Raktár projekt</h1>
+            </header>
+
+            
+            <form method="post" enctype="multipart/form-data">
+
+                <div class="index-buttons">
+                    <div class="database-buttons">
+                        <h2>Adatbázis</h2>
+
+                        <button type="submit" name="create-database" class="create-database">Adatbázis Létrehozása</button>
+                        <button type="submit" name="delete-database">Adatbázis Törlése</button>
+                    </div><br>
+
+                    <div class="tables-buttons">
+                        <h2>Táblák</h2>
+                        <button type="submit" name="create-tables" class="create-tables">Táblák Létrehozása</button>
+                        <button type="submit" name="delete-tables-btn">Táblák Törlése</button>
+                    </div><br>
+                    
+                    <div class="import">
+                        <h2>Adatok</h2>
+                        <div class="mb-3">
+                            <input class="form-control" type="file" id="formFile" name="input-file">
+                            <button type="submit" name="import-btn">Import</button>
+                            <button type="submit" name="clear-tables-btn">Adatok Törlése</button>
+                        </div>            
+                    </div>
+
+                    <div class="next-page">
+                        <h2>Raktár</h2>
+                        <button><a href="warehouse.php">Benézek a raktárba</a></button>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </body>
+        </html>';
+    }
+
+    static function showHomeBtn(){
+        echo'
+        <body>
+        <button><a href="index.php"><i class="fa fa-home" title="Kezdőlap"></i></a></button>
+        ';
+    }
+
+    static function showExportDiv()
+    {
+        echo '
+            <div class="export">
+
+                <form method="post" action="exportWines.php">
+                    <button id="btn-export-wines" name="btn-export-wines" title="Wines">
+                        <i class="fa fa-file-excel"></i>&nbsp;Wines</button>
+                </form>
+
+                <form method="post" action="exportDrinks.php">
+                    <button id="btn-export-drinks" name="btn-export-drinks" title="Drinks">
+                        <i class="fa fa-file-excel"></i>&nbsp;Drinks</button>
+                </form>
+
+                <form method="post" action="exportChips.php">
+                    <button id="btn-export-chips" name="btn-export-chips" title="Chips">
+                        <i class="fa fa-file-excel"></i>&nbsp;Chips</button>
+                </form>
+
+                <form method="post" action="exportIceCreams.php">
+                    <button id="btn-export-ice-creams" name="btn-export-ice-creams" title="Ice-Creams">
+                        <i class="fa fa-file-excel"></i>&nbsp;Ice-Creams</button>
+                </form>
+
+                <form method="post" action="exportChecks.php">
+                    <button id="btn-export-check" name="btn-export-check" title="Check">
+                        <i class="fa fa-file-excel"></i>&nbsp;Készletfigyelés</button>
+                </form>
+            </div>';
     }
 
     static function showDropDown(array $buildings)
     {
-        echo '<form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
+        echo '
+            <header>
+            <h1 class="storeHeader">Raktárak</h1>
+            </header>
+            <form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
             <label for="buildingDropdown">Raktár:</label>
             <select id="buildingDropdown" name="buildingDropdown">
             <option value="">Válassz Raktárt</option>';
@@ -41,7 +129,7 @@ abstract class AbstractPage {
 
     static function showMainTable(array $storages)
     {
-        echo '<table>
+        echo '<table class="MainTable">
                 <tr>
                     <th>Raktár</th>
                     <th>Polc</th>
@@ -69,23 +157,20 @@ abstract class AbstractPage {
         echo '<form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
                 <input type="hidden" name="modify_store_id" value="' . $modifyStoreId . '">
 
-                <label for="modified_store_name">Módosított raktár neve:</label>
-                <input type="text" id="modified_store_name" name="modified_store_name" value="' . $storeToModify['name'] . '">
-
                 <label for="modified_store_shelves">Módosított polc:</label>
-                <input type="text" id="modified_store_shelves" name="modified_store_shelves" value="' . $storeToModify['shelves'] . '">
+                <input type="text" id="modified_store_shelves" name="modified_store_shelves" value="' . $storeToModify['shelves'] . '"><br>
 
                 <label for="modified_store_name">Módosított sor:</label>
-                <input type="text" id="modified_store_self_lines" name="modified_store_self_lines" value="' . $storeToModify['shelf_lines'] . '">
+                <input type="text" id="modified_store_self_lines" name="modified_store_self_lines" value="' . $storeToModify['shelf_lines'] . '"><br>
 
                 <label for="modified_store_name">Módosított áru:</label>
-                <input type="text" id="modified_store_products_name" name="modified_store_products_name" value="' . $storeToModify['products_name'] . '">
+                <input type="text" id="modified_store_products_name" name="modified_store_products_name" value="' . $storeToModify['products_name'] . '"><br>
 
                 <label for="modified_store_name">Módosított áru mennyisége:</label>
-                <input type="text" id="modified_store_quantity" name="modified_store_quantity" value="' . $storeToModify['quantity'] . '">
+                <input type="text" id="modified_store_quantity" name="modified_store_quantity" value="' . $storeToModify['quantity'] . '"><br>
 
                 <label for="modified_store_name">Módosított minimum mennyiség:</label>
-                <input type="text" id="modified_store_minimum_qty" name="modified_store_minimum_qty" value="' . $storeToModify['minimum_qty'] . '">
+                <input type="text" id="modified_store_minimum_qty" name="modified_store_minimum_qty" value="' . $storeToModify['minimum_qty'] . '"><br>
 
                 <input type="submit" name="modify_store_submit" value="Mentés">
             </form>';
@@ -99,23 +184,20 @@ abstract class AbstractPage {
         }
         echo '<input type="hidden" name="building_id" value="' . (isset($selectedBuildingId) ? $selectedBuildingId : '') . '">
 
-        <label for="new_store_name">Új raktár neve:</label>
-        <input type="text" id="new_store_name" name="new_store_name">
-
         <label for="new_shelves_name">Új polc neve:</label>
-        <input type="text" id="new_shelves_name" name="new_shelves_name">
+        <input type="text" id="new_shelves_name" name="new_shelves_name"><br>
 
         <label for="new_shelves_lines_name">Új sor neve:</label>
-        <input type="text" id="new_shelves_lines_name" name="new_shelves_lines_name">
+        <input type="text" id="new_shelves_lines_name" name="new_shelves_lines_name"><br>
 
         <label for="new_products_name">Új áru neve:</label>
-        <input type="text" id="new_products_name" name="new_products_name">
+        <input type="text" id="new_products_name" name="new_products_name"><br>
 
         <label for="new_products_quantity">Új áru mennyisége:</label>
-        <input type="text" id="new_products_quantity" name="new_products_quantity">
+        <input type="text" id="new_products_quantity" name="new_products_quantity"><br>
 
         <label for="new_products_minimum_qty">Új áru minimum mennyisége:</label>
-        <input type="text" id="new_products_minimum_qty" name="new_products_minimum_qty">
+        <input type="text" id="new_products_minimum_qty" name="new_products_minimum_qty"><br>
 
         <input type="hidden" name="id_building" value="<?php echo $selectedBuildingId; ?>">
         <input type="submit" name="add_store" value="Hozzáad">
