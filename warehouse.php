@@ -58,20 +58,14 @@
     }
 
     if(isset($_POST['add_store'])) {
-        $newStoreName = $_POST['new_store_name'];
+        $buildingId = isset($_POST["building_id"]) ? $_POST["building_id"] : '';
         $newShelvesName = $_POST['new_shelves_name'];
-        $newShelvesLinesName = $_POST['new_shelves_lines_name'];
+        $newShelfLinesName = $_POST['new_shelves_lines_name'];
         $newProductsName = $_POST['new_products_name'];
+        $newProductName = $_POST['new_products_name'];
         $newProductsQuantity = $_POST['new_products_quantity'];
-        $newProductsMinimumQty = $_POST['new_products_minimum_qty'];
-
-        if(!empty($newStoreName) && !empty($newShelvesName) && !empty($newShelvesLinesName) && !empty($newProductsName) && !empty($newProductsQuantity) && !empty($newProductsMinimumQty)) {
-            $storesDbTools->addStore($newStoreName, $newShelvesName, $newShelvesLinesName, $newProductsName, $newProductsQuantity, $newProductsMinimumQty, $buildingId);
-            $storages = $storesDbTools->getStoresByBuildingId($buildingId);
-        }
-        else {
-            echo "Kérlek töltsd ki az összes mezőt!";
-        }
+        $newProductsMinimumQty = $_POST['new_products_minimum_qty'];    
+        $storesDbTools->addStore($buildingId, $newShelvesName, $newShelfLinesName, $newProductsName, $newProductName, $newProductsQuantity, $newProductsMinimumQty);
     }
 
     

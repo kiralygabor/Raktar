@@ -1,13 +1,11 @@
-body{
-    background-color: gray;
-}
-
 .index-header{
     text-align: center;
+    padding-bottom: 10%;
 }
 
-header{
-    padding-bottom: 10%;
+.storeHeader{
+    text-align: center;
+    padding-bottom: 0.3%;
 }
 
 .index-buttons{
@@ -15,8 +13,6 @@ header{
     margin: auto;
     width: 35%;
     padding: 10px;
-    background-color: lightgray;
-    box-shadow: 5px 5px 5px lightgray;
 }
 
 .database-buttons{
@@ -55,4 +51,57 @@ header{
 a{
     text-decoration: none;
     color: black;
+}
+
+.MainTable{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.MainTable th, td{
+    border: 1px solid;
+    text-align: center;
+    
+}
+
+.MainTable th{
+    width: 10%;
+}
+
+.MainTable td{
+    width: 10%;
+}
+
+.keres{
+    border: 2px solid;
+    text-align: center;
+    width: 35%;
+    margin: auto auto;
+    margin-bottom: 5px;
+}
+
+.export{
+    border: 2px solid;
+    text-align: center;
+    width: 35%;
+    margin: auto auto;
+    padding-bottom: 1%;
+    margin-bottom: 5px;
+}
+
+.add{
+    border: 2px solid;
+    text-align: center;
+    width: 35%;
+    margin: auto auto;
+    padding-bottom: 1%;
+    margin-bottom: 5px;
+}
+
+.modositas{
+    border: 2px solid;
+    text-align: center;
+    width: 35%;
+    margin: auto auto;
+    padding-bottom: 1%;
 }

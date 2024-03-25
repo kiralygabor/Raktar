@@ -114,10 +114,15 @@ class StoresDbTools {
         return true;
     }
 
-    public function addStore($newStoreName, $newShelvesName, $newShelvesLinesName, $newProductsName, $newProductsQuantity, $newProductsMinimumQty, $buildingId) {
-        //$sql = "INSERT INTO (zip_code, city, id_county) VALUES (?, ?, ?)";
+    public function addStore($buildingId, $newShelvesName, $newShelvesLinesName, $newProductsName, $newProductName, $newProductsQuantity, $newProductsMinimumQty) {
+        $sql = "INSERT INTO stores (buildings_id, shelves, shelf_lines, products_name) VALUES (?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ssssiii", $newStoreName, $newShelvesName, $newShelvesLinesName, $newProductsName, $newProductsQuantity, $newProductsMinimumQty, $buildingId);
+        $stmt->bind_param("isss", $buildingId, $newShelvesName, $newShelvesLinesName, $newProductsName);
+        $result = $stmt->execute();
+
+        $sql = "INSERT INTO products (name, quantity, minimum_qty) VALUES (?, ?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("sii", $newProductName, $newProductsQuantity, $newProductsMinimumQty);
         $result = $stmt->execute();
  
         if (!$result) {

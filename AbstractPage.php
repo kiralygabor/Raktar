@@ -76,27 +76,29 @@ abstract class AbstractPage {
         echo '
             <div class="export">
 
-                <form method="post" action="exportWines.php">
+                <h2>Leltározás</h2>
+
+                <form method="post" action="exportWines.php" class ="wines">
                     <button id="btn-export-wines" name="btn-export-wines" title="Wines">
                         <i class="fa fa-file-excel"></i>&nbsp;Wines</button>
                 </form>
 
-                <form method="post" action="exportDrinks.php">
+                <form method="post" action="exportDrinks.php" class ="drinks">
                     <button id="btn-export-drinks" name="btn-export-drinks" title="Drinks">
                         <i class="fa fa-file-excel"></i>&nbsp;Drinks</button>
                 </form>
 
-                <form method="post" action="exportChips.php">
+                <form method="post" action="exportChips.php" class ="chips">
                     <button id="btn-export-chips" name="btn-export-chips" title="Chips">
                         <i class="fa fa-file-excel"></i>&nbsp;Chips</button>
                 </form>
 
-                <form method="post" action="exportIceCreams.php">
+                <form method="post" action="exportIceCreams.php" class ="ice-creams">
                     <button id="btn-export-ice-creams" name="btn-export-ice-creams" title="Ice-Creams">
                         <i class="fa fa-file-excel"></i>&nbsp;Ice-Creams</button>
                 </form>
 
-                <form method="post" action="exportChecks.php">
+                <form method="post" action="exportChecks.php" class ="check">
                     <button id="btn-export-check" name="btn-export-check" title="Check">
                         <i class="fa fa-file-excel"></i>&nbsp;Készletfigyelés</button>
                 </form>
@@ -109,6 +111,8 @@ abstract class AbstractPage {
             <header>
             <h1 class="storeHeader">Raktárak</h1>
             </header>
+            <div class="keres">
+            <h2>Keresés</h2>
             <form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
             <label for="buildingDropdown">Raktár:</label>
             <select id="buildingDropdown" name="buildingDropdown">
@@ -117,14 +121,15 @@ abstract class AbstractPage {
                 echo '<option value="' . $building['id'] . '">' . $building['name'] . '</option>';
                 }
             echo '</select>
-            <input type="submit" name="submit" value="Küldés">
+            <input type="submit" name="submit" value="Küldés"><br>
             <form method="post" action="index.php">
                 <input type="text" name="needle" value="">
                 <button class="search" type="submit" name="btn-search" method="post">Keres</button>
             </form>
             <br>
             <input type="hidden" name="building_id" id="building_id" value="">
-        </form>';
+            </form>
+            </div>';
     }
 
     static function showMainTable(array $storages)
@@ -154,7 +159,11 @@ abstract class AbstractPage {
 
     static function showModifyStore(array $storeToModify, ?int $modifyStoreId)
     {
-        echo '<form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
+        echo '
+                <div class="modositas">
+                <h2>Módosítás</h2>
+                
+                <form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">
                 <input type="hidden" name="modify_store_id" value="' . $modifyStoreId . '">
 
                 <label for="modified_store_shelves">Módosított polc:</label>
@@ -173,35 +182,42 @@ abstract class AbstractPage {
                 <input type="text" id="modified_store_minimum_qty" name="modified_store_minimum_qty" value="' . $storeToModify['minimum_qty'] . '"><br>
 
                 <input type="submit" name="modify_store_submit" value="Mentés">
-            </form>';
+            </form>
+            </div>';
     }
 
     static function showAddStore()
     {
-        echo '<form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">';
+        echo '<div class="add">
+        
+        <h2>Termékfelvétel</h2>
+
+        <form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">';
+        $selectedBuildingId = '';
         if (isset($_POST["buildingDropdown"])) {
-            $selectedBuildingId = isset($_POST["buildingDropdown"]) ? $_POST["buildingDropdown"] : '';
+            $selectedBuildingId = $_POST["buildingDropdown"];
         }
-        echo '<input type="hidden" name="building_id" value="' . (isset($selectedBuildingId) ? $selectedBuildingId : '') . '">
+        echo '<input type="hidden" name="building_id" value="' . $selectedBuildingId . '">
 
         <label for="new_shelves_name">Új polc neve:</label>
-        <input type="text" id="new_shelves_name" name="new_shelves_name"><br>
+        <input type="text" id="new_shelves_name" name="new_shelves_name" required><br>
 
         <label for="new_shelves_lines_name">Új sor neve:</label>
-        <input type="text" id="new_shelves_lines_name" name="new_shelves_lines_name"><br>
+        <input type="text" id="new_shelves_lines_name" name="new_shelves_lines_name" required><br>
 
         <label for="new_products_name">Új áru neve:</label>
-        <input type="text" id="new_products_name" name="new_products_name"><br>
+        <input type="text" id="new_products_name" name="new_products_name" required><br>
 
         <label for="new_products_quantity">Új áru mennyisége:</label>
-        <input type="text" id="new_products_quantity" name="new_products_quantity"><br>
+        <input type="text" id="new_products_quantity" name="new_products_quantity" required><br>
 
         <label for="new_products_minimum_qty">Új áru minimum mennyisége:</label>
-        <input type="text" id="new_products_minimum_qty" name="new_products_minimum_qty"><br>
+        <input type="text" id="new_products_minimum_qty" name="new_products_minimum_qty" required><br>
 
         <input type="hidden" name="id_building" value="<?php echo $selectedBuildingId; ?>">
         <input type="submit" name="add_store" value="Hozzáad">
-        </form>';
+        </form>
+        </div>';
     }
 
 }
