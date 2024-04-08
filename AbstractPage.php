@@ -220,6 +220,16 @@ abstract class AbstractPage {
         </div>';
     }
 
+    static function showPDFButton(){
+        echo '
+            <div class = pdf>
+            <form method="post" action="pdf.php" class ="Pdf">
+                <button id="btn-pdf" name="btn-pdf" title="Pdf">
+                <i class="fa-solid fa-file-pdf"></i>&nbsp;PDF</button>
+            </form>
+            </div>';
+    }
+
 }
 
 ?>

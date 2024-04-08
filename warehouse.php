@@ -8,6 +8,7 @@
     $buildingsDbTools = new BuildingsDbTools();
     $storesDbTools = new StoresDbTools();
     $productsDbTools = new ProductsDbTools();
+ 
 
     AbstractPage::insertHtmlHead();
     AbstractPage::showHomeBtn();
@@ -15,6 +16,7 @@
     AbstractPage::showDropDown($buildings);
     AbstractPage::showExportDiv();
     AbstractPage::showAddStore();
+    AbstractPage::showPDFButton();
 
     if (isset($_POST["buildingDropdown"])) 
     {
@@ -67,8 +69,6 @@
         $newProductsMinimumQty = $_POST['new_products_minimum_qty'];    
         $storesDbTools->addStore($buildingId, $newShelvesName, $newShelfLinesName, $newProductsName, $newProductName, $newProductsQuantity, $newProductsMinimumQty);
     }
-
-    
 
 
 

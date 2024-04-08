@@ -167,5 +167,12 @@ class StoresDbTools {
 
         return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getAll(): array
+    {
+        $query = "SELECT buildings.name, stores.shelves, stores.shelf_lines, stores.products_name, products.quantity FROM stores INNER JOIN products ON products.name = stores.products_name INNER JOIN buildings ON buildings.id = stores.buildings_id  ORDER BY buildings.name;";
+
+        return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
  
 }
