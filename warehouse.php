@@ -17,6 +17,7 @@
     AbstractPage::showExportDiv();
     AbstractPage::showAddStore();
     AbstractPage::showPDFButton();
+    AbstractPage::showMailButton();
 
     if (isset($_POST["buildingDropdown"])) 
     {

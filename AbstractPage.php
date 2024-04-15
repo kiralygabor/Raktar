@@ -230,6 +230,16 @@ abstract class AbstractPage {
             </div>';
     }
 
+    static function showMailButton(){
+        echo '
+            <div class = mail>
+            <form method="post" action="mail.php" class ="Mail">
+                <button id="btn-mail" name="btn-mail" title="Mail">
+                <i class="fa-solid fa-envelope"></i>&nbsp;Mail</button>
+            </form>
+            </div>';
+    }
+
 }
 
 ?>

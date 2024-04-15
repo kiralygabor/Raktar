@@ -63,6 +63,6 @@ $pdf->SetLeftMargin(23);
 $pdf->AddPage();
 $pdf->SetFont('DejaVu','',12);
 $pdf->Table($header, $data);
-$pdf->Output('D', 'raktar.pdf');
+$pdf->Output('F', 'PDF/raktar.pdf');
 
 ?>
