@@ -1,18 +1,18 @@
 <?php
-require_once 'StoresInterface.php';
+require_once 'UsersInterface.php';
 require_once 'DB.php';
 
-class DBStores extends DB implements StoresInterface
+class DBUsers extends DB implements UsersInterface
 {
 
     public function createTable(){
-        $query = 'CREATE TABLE IF NOT EXISTS stores (id int AUTO_INCREMENT PRIMARY KEY, buildings_id int NOT NULL, shelves varchar(10), shelf_lines varchar(10), products_name varchar(50));';
+        $query = 'CREATE TABLE IF NOT EXISTS users (id int AUTO_INCREMENT PRIMARY KEY, name varchar(50) NOT NULL, email varchar(25) NOT NULL UNIQUE, password varchar(50) NOT NULL, token varchar(100), token_valid_until datetime, registration_date datetime,  is_active tinyint default false);';
         return $this->mysqli->query($query);
     }
 
     public function create(array $data): ?int
     {
-        $sql = 'INSERT INTO stores (%s) VALUES (%s)';
+        $sql = 'INSERT INTO users (%s) VALUES (%s)';
         $fields = '';
         $values = '';
         foreach ($data as $field => $value) {

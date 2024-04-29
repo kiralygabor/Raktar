@@ -98,10 +98,11 @@ class CsvTools{
             if ($idx == 0) {
                 continue;
             }
-                $shelf = $line[$this->idxShelves];
-                $shelfLine = $line[$this->idxLines];
                 $buildingId = $line[$this->idxBuildingId];
-                $stores[] = [$shelf,$shelfLine,$buildingId];
+                $shelf = $line[$this->idxShelves];
+                $shelfLine = $line[$this->idxLines];   
+                $productsName = $line[$this->idxObjects];            
+                $stores[] = [$buildingId,$shelf,$shelfLine,$productsName];
         }
         return $stores;
     }
@@ -127,7 +128,8 @@ class CsvTools{
         return $products;
     }
 
-    function truncateBuildingsTable($buildingsDbTools,$csvData){
+    function truncateBuildingsTable($buildingsDbTools,$csvData)
+    {
         $buildingsDbTools->truncateBuildings();
         $buildings = $this->getBuildings($csvData);
         foreach ($buildings as $building){
@@ -135,23 +137,23 @@ class CsvTools{
         }
     }
 
-    function truncateStoresTable($storesDbTools,$csvData){
+    function truncateStoresTable($storesDbTools,$csvData)
+    {
         $storesDbTools->truncateStore();
         $stores = $this->getStores($csvData);
         foreach ($stores as $store){
-            $storesDbTools->createStore($store[0],$store[1],$store[2]);
+            $storesDbTools->createStore($store[0],$store[1],$store[2],$store[3]);
         }
     }
 
-    function truncateProductsTable($productsDbTools,$csvData){
+    function truncateProductsTable($productsDbTools,$csvData)
+    {
         $productsDbTools->truncateProduct();
         $products = $this->getProducts($csvData);
         foreach ($products as $product){
             $productsDbTools->createProduct($product[0],$product[1]);
         }
     }
-
-
 
 }
 

@@ -6,7 +6,7 @@ class DBProducts extends DB implements ProductsInterface
 {
 
     public function createTable(){
-        $query = 'CREATE TABLE IF NOT EXISTS products (id int AUTO_INCREMENT PRIMARY KEY, name varchar(35) NOT NULL, quantity int NOT NULL, minimum_qty int NOT NULL, stores_id int)';
+        $query = 'CREATE TABLE IF NOT EXISTS products (id int AUTO_INCREMENT PRIMARY KEY, name varchar(35) NOT NULL, quantity int NOT NULL, minimum_qty int NOT NULL)';
         return $this->mysqli->query($query);
     }
 

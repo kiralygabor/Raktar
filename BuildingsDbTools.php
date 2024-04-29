@@ -39,5 +39,21 @@ class BuildingsDbTools {
         $result = $this->mysqli->query("DROP TABLE " . self::DBTABLE);
         return $result;
     }
+
+    public function getAllBuildings()
+    {
+        $buildings = [];
+
+        $sql = "SELECT * FROM buildings";
+        $result = $this->mysqli->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $buildings[] = $row;
+            }
+        }
+        return $buildings;
+    }
+
 }
 ?>
