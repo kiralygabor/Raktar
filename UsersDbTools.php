@@ -19,11 +19,12 @@ class UsersDbTools {
         $this->mysqli->close();
     }
 
-    function createUsers($name, $password, $email)
+    function createUsers($name, $email, $password)
     {
         $user = new User();
         $token = $user->getNewToken();
-        $sql = "INSERT INTO " . self::DBTABLE . " (name,email,password,token) VALUES (?, ?, ?, '$token')";
+        $validUntil = $user->getValidUntil();
+        $sql = "INSERT INTO " . self::DBTABLE . " (name,email,password,token,token_valid_until) VALUES (?, ?, ?, '$token', '$validUntil')";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("sss", $name, $email, $password);
         $result = $stmt->execute();
@@ -31,7 +32,46 @@ class UsersDbTools {
             echo "Hiba történt!";
             return false;
         }
+        $user->sendRegistrationEmail($token,$email);
         return true;
+    }
+
+    function getUserByToken($token)
+    {
+        $datetime = new DateTime();
+        $strDatetime = $datetime->format('Y-m-d H:i:s');
+        $query = "SELECT * FROM users WHERE token = '$token' and token_valid_until > '$strDatetime';";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+        return $user;
+    }
+
+    function updateUser($registrationDate, $token)
+    {
+        $sql = "UPDATE " . self::DBTABLE . " SET registration_date = ?, is_active = 1 WHERE token = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ss", $registrationDate, $token);
+        $result = $stmt->execute();
+    }
+
+    function getUserPasswordByEmail($loginEmail)
+    {
+        $query = "SELECT users.password FROM users WHERE email = ?";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("s", $loginEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $login = $result->fetch_assoc();
+        $stmt->close();
+        $password = '';
+        if(!empty($login['password']))
+        {
+            $password = $login['password'];
+        }
+        return $password;
     }
 
     function truncateUsers()
@@ -45,8 +85,5 @@ class UsersDbTools {
         $result = $this->mysqli->query("DROP TABLE " . self::DBTABLE);
         return $result;
     }
-
-
-
 }
 ?>

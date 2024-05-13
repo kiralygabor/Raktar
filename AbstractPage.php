@@ -67,7 +67,7 @@ abstract class AbstractPage {
     static function showHomeBtn(){
         echo'
         <body>
-        <button><a href="index.php"><i class="fa fa-home" title="Kezdőlap"></i></a></button>
+        <button><a href="index.php"><i class="fa-solid fa-door-open"></i></a></button>
         ';
     }
 
@@ -247,22 +247,22 @@ abstract class AbstractPage {
 
             <h2>Bejelentkezés</h2>
 
+            <form method="post" action="login.php" class ="Bejelentkezés">
+
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-at"></i></span>
-                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name="loginEmail" required>
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                <input type="text" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" required>
+                <input type="password" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" name="loginPassword" required>
             </div>
 
-            <form method="post" action="" class ="Bejelentkezés">
+            
                 <button id="btn-login" name="btn-login" title="Bejelentkezés">Bejelentkezés</button>
-            </form>
-
-            <form method="post" action="" class ="Regisztráció">
                 <button><a href="registration.php">Regisztráció</i></a></button>
+
             </form>
 
             <div class="elfelejtettjelszo">
@@ -293,12 +293,12 @@ abstract class AbstractPage {
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                <input type="text" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" name="password" required>
+                <input type="password" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" name="password" required>
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                <input type="text" class="form-control" placeholder="Jelszó Újra" aria-label="Jelszó_Újra" aria-describedby="basic-addon1" name="password_confirm" required>
+                <input type="password" class="form-control" placeholder="Jelszó Újra" aria-label="Jelszó_Újra" aria-describedby="basic-addon1" name="password_confirm" required>
             </div>
         
                 <button type="submit" id="btn-registration" name="btn-registration" title="Regisztráció">Regisztráció</button>
