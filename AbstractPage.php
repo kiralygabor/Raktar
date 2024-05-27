@@ -67,7 +67,7 @@ abstract class AbstractPage {
     static function showHomeBtn(){
         echo'
         <body>
-        <button><a href="index.php"><i class="fa fa-home" title="Kezdőlap"></i></a></button>
+        <button><a href="index.php"><i class="fa-solid fa-door-open"></i></a></button>
         ';
     }
 
@@ -152,6 +152,28 @@ abstract class AbstractPage {
                     <td>' . $storage['quantity'] . '</td>
                     <td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="storage_id" value="' . $storage['id'] . '"><input type="submit" name="delete_storage" value="Törlés"></form></td>
                     <td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="modify_storage_id" value="' . $storage['id'] . '"><input type="submit" name="modify_storage" value="Módosítás"></form></td>
+                </tr>';
+        }
+        echo '</table>';
+    }
+
+    static function showMainTableUser(array $storages)
+    {
+        echo '<table class="MainTable">
+                <tr>
+                    <th>Raktár</th>
+                    <th>Polc</th>
+                    <th>Sor</th>
+                    <th>Áru</th>
+                    <th>Mennyiség</th>
+                </tr>';
+        foreach ($storages as $storage) {
+            echo '<tr>
+                    <td>' . $storage['name'] . '</td>
+                    <td>' . $storage['shelves'] . '</td>
+                    <td>' . $storage['shelf_lines'] . '</td>
+                    <td>' . $storage['products_name'] . '</td>
+                    <td>' . $storage['quantity'] . '</td>
                 </tr>';
         }
         echo '</table>';
@@ -247,22 +269,22 @@ abstract class AbstractPage {
 
             <h2>Bejelentkezés</h2>
 
+            <form method="post" action="login.php" class ="Bejelentkezés">
+
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-at"></i></span>
-                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required>
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" name="loginEmail" required>
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                <input type="text" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" required>
+                <input type="password" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" name="loginPassword" required>
             </div>
 
-            <form method="post" action="" class ="Bejelentkezés">
+            
                 <button id="btn-login" name="btn-login" title="Bejelentkezés">Bejelentkezés</button>
-            </form>
-
-            <form method="post" action="" class ="Regisztráció">
                 <button><a href="registration.php">Regisztráció</i></a></button>
+
             </form>
 
             <div class="elfelejtettjelszo">
@@ -293,14 +315,21 @@ abstract class AbstractPage {
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                <input type="text" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" name="password" required>
+                <input type="password" class="form-control" placeholder="Jelszó" aria-label="Jelszó" aria-describedby="basic-addon1" name="password" required>
             </div>
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                <input type="text" class="form-control" placeholder="Jelszó Újra" aria-label="Jelszó_Újra" aria-describedby="basic-addon1" name="password_confirm" required>
+                <input type="password" class="form-control" placeholder="Jelszó Újra" aria-label="Jelszó_Újra" aria-describedby="basic-addon1" name="password_confirm" required>
             </div>
-        
+
+            <div class="input-group mb-3">
+                <select id="privilegeDropdown" name="privilegeDropdown">
+                <option value="Felhasználó">Felhasználó</option>
+                <option value="Admin">Admin</option>
+                </select>
+            </div>
+
                 <button type="submit" id="btn-registration" name="btn-registration" title="Regisztráció">Regisztráció</button>
 
             </form>

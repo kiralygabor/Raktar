@@ -1,6 +1,5 @@
 <?php
 
-require_once("User.php");
 class UsersDbTools {
     const DBTABLE = 'users';
 
@@ -19,14 +18,14 @@ class UsersDbTools {
         $this->mysqli->close();
     }
 
-    function createUsers($name, $email, $password)
+    function createUsers($name, $email, $password, $privilege)
     {
         $user = new User();
         $token = $user->getNewToken();
         $validUntil = $user->getValidUntil();
-        $sql = "INSERT INTO " . self::DBTABLE . " (name,email,password,token,token_valid_until) VALUES (?, ?, ?, '$token', '$validUntil')";
+        $sql = "INSERT INTO " . self::DBTABLE . " (name,email,password,token,token_valid_until,status) VALUES (?, ?, ?, '$token', '$validUntil', ?)";
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("sss", $name, $email, $password);
+        $stmt->bind_param("ssss", $name, $email, $password, $privilege);
         $result = $stmt->execute();
         if (!$result) {
             echo "Hiba történt!";
@@ -40,10 +39,13 @@ class UsersDbTools {
     {
         $datetime = new DateTime();
         $strDatetime = $datetime->format('Y-m-d H:i:s');
-        $query = "SELECT * FROM users WHERE token = $token and token_valid_until > $strDatetime;";
+        $query = "SELECT * FROM users WHERE token = '$token' and token_valid_until > '$strDatetime';";
         $stmt = $this->mysqli->prepare($query);
-        $result = $stmt->execute();
-        return $result->fetch_assoc();
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+        return $user;
     }
 
     function updateUser($registrationDate, $token)
@@ -54,6 +56,34 @@ class UsersDbTools {
         $result = $stmt->execute();
     }
 
+    function getUserPasswordByEmail($loginEmail)
+    {
+        $query = "SELECT users.password FROM users WHERE email = ?";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("s", $loginEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $login = $result->fetch_assoc();
+        $stmt->close();
+        $password = '';
+        if(!empty($login['password']))
+        {
+            $password = $login['password'];
+        }
+        return $password;
+    }
+
+    function getUserPrivilegeByEmail($email)
+    {
+        $query = "SELECT status FROM " . self::DBTABLE . " WHERE email = ?";
+            $stmt = $this->mysqli->prepare($query);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->bind_result($privilege);
+            $stmt->fetch();
+            $stmt->close();
+            return $privilege;
+    }
     function truncateUsers()
     {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
@@ -65,8 +95,5 @@ class UsersDbTools {
         $result = $this->mysqli->query("DROP TABLE " . self::DBTABLE);
         return $result;
     }
-
-
-
 }
 ?>
